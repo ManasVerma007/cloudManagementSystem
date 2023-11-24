@@ -4,7 +4,7 @@ require("dotenv").config();
 const sequelize = new Sequelize(
   "cloud_machine",
   "manas",
-  process.env.dbPassword,
+  "Ghost@rider123",
   {
     host: "localhost",
     dialect: "mysql",
