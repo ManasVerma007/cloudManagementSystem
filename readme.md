@@ -24,23 +24,19 @@ npm start
 
 Then, you can use a tool like curl or Postman to make requests to the API.
 
-Endpoints
-POST /api/clusters: Create a new cluster.
+## Endpoints
+1 .POST /machines: This endpoint is used to create a new machine. The validateMachineCreation middleware is used to validate the request body before passing control to the createMachine controller function.
 
-GET /api/clusters: Get a list of all clusters.
+2 .GET /machines/:clusterId: This endpoint is used to get all machines for a specific cluster. The clusterId is passed as a URL parameter.
 
-GET /api/clusters/:id: Get a specific cluster.
+3 .DELETE /machines/delete/:machineId: This endpoint is used to delete a specific machine. The machineId is passed as a URL parameter.
 
-PUT /api/clusters/:id: Update a specific cluster.
+4 .PUT /machine/start: This endpoint is used to start a machine. The specific machine to start would likely be identified by data in the query parameters.
 
-DELETE /api/clusters/:id: Delete a specific cluster.
+5 .PUT /machine/stop: This endpoint is used to stop a machine. The specific machine to stop would likely be identified by data in the query parameters.
 
-POST /api/machines: Create a new machine.
+6 .PUT /machine/reboot: This endpoint is used to reboot a machine. The specific machine to reboot would likely be identified by data in the query parameters.
 
-GET /api/machines: Get a list of all machines.
+7 .POST /clusters: This endpoint is used to create a new cluster. The validateClusterCreation middleware is used to validate the request body before passing control to the createCluster controller function.
 
-GET /api/machines/:id: Get a specific machine.
-
-PUT /api/machines/:id: Update a specific machine.
-
-DELETE /api/machines/:id: Delete a specific machine.
+8 .DELETE /clusters/delete/:clusterId: This endpoint is used to delete a specific cluster. The clusterId is passed as a URL parameter.
