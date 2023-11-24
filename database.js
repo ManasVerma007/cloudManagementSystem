@@ -1,7 +1,6 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-// Create a Sequelize instance and establish a connection to MySQL
 const sequelize = new Sequelize(
   "cloud_machine",
   "root",
@@ -12,7 +11,6 @@ const sequelize = new Sequelize(
   }
 );
 
-// Test the connection
 sequelize
   .authenticate()
   .then(() => {

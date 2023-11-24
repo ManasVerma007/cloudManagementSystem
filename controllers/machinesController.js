@@ -2,11 +2,9 @@ const Machine = require('../models/machineModel');
 const Cluster = require('../models/clusterModel');
 const Tag = require('../models/tagsModel');
 
-// Controller function for creating a machine
 const createMachine = async (req, res) => {
     try {
       const { name, ipAddress, instanceType, clusterId, tags } = req.body;
-      // Check if cluster exists
       const cluster = await Cluster.findByPk(clusterId);
       if (!cluster) {
         return res.status(404).json({ error: 'Cluster not found' });
@@ -14,11 +12,10 @@ const createMachine = async (req, res) => {
   
       const newMachine = await Machine.create({ name, ipAddress, instanceType, clusterId });
   
-      // Add tags to the machine
       for (let tagName of tags) {
-        // Find or create the tag
+
         const [tag] = await Tag.findOrCreate({ where: { name: tagName } });
-        // Associate the tag with the machine
+
         await newMachine.addTag(tag);
       }
   
@@ -28,7 +25,7 @@ const createMachine = async (req, res) => {
     }
   };
 
-// controller function to get all the machines of a cluster
+
 const getMachines = async (req, res) => {
   try {
     const { clusterId } = req.params;
@@ -43,23 +40,6 @@ const getMachines = async (req, res) => {
   }
 };
 
-// controller function to get a particular machine with tags
-// const getMachineWithTag = async (req, res) => {
-//   try {
-//     const { machineId } = req.params;
-//     const machine = await Machine.findByPk(machineId, {
-//       include: [{ model: Tag, attributes: ['name'] }],
-//     });
-//     if (!machine) {
-//       return res.status(404).json({ error: 'Machine not found' });
-//     }
-//     return res.status(200).json(machine);
-//   } catch (error) {
-//     return res.status(500).json({ error: 'Failed to get machine' });
-//   }
-// };
-
-// controller function to delete a machine
 const deleteMachine = async (req, res) => {
   try {
     const { machineId } = req.params;
@@ -74,7 +54,6 @@ const deleteMachine = async (req, res) => {
   }
 };
 
-// start one or more machine with one or more tags
 const startMachine = async (req, res) => {
   try {
     const { tags } = req.query;
@@ -85,7 +64,7 @@ const startMachine = async (req, res) => {
     if (!machines.length) {
       return res.status(404).json({ error: 'Machines not found' });
     }
-    // Start all the machines
+
     for (let machine of machines) {
       machine.status = 'running';
       await machine.save();
@@ -96,7 +75,6 @@ const startMachine = async (req, res) => {
   }
 };
 
-// stop one or more machine with one or more tags
 const stopMachine = async (req, res) => {
   try {
     const { tags } = req.query;
@@ -107,7 +85,6 @@ const stopMachine = async (req, res) => {
     if (!machines.length) {
       return res.status(404).json({ error: 'Machines not found' });
     }
-    // Stop all the machines
     for (let machine of machines) {
       machine.status = 'stopped';
       await machine.save();
@@ -118,7 +95,6 @@ const stopMachine = async (req, res) => {
   }
 };
 
-// reboot one or more machine with one or more tags
 const rebootMachine = async (req, res) => {
   try {
     const { tags } = req.query;
@@ -129,7 +105,7 @@ const rebootMachine = async (req, res) => {
     if (!machines.length) {
       return res.status(404).json({ error: 'Machines not found' });
     }
-    // Reboot all the machines
+
     for (let machine of machines) {
       machine.status = 'rebooting';
       await machine.save();
@@ -147,5 +123,4 @@ module.exports = {
   startMachine,
   stopMachine,
   rebootMachine,
-  // Other machine controller functions here
 };

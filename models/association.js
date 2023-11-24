@@ -1,4 +1,3 @@
-// associations.js
 const Machine = require('./machineModel');
 const Cluster = require('./clusterModel');
 const Tag = require('./tagsModel');

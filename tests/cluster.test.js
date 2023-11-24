@@ -1,7 +1,6 @@
 const request = require('supertest');
-//reqiure the app 
-const app = require('../app'); // Import your Express app
 
+const app = require('../app'); 
 describe("Cluster Creation", () => {
   describe("Payload", () => {
     it("Should return 400 when name is missing", async () => {
