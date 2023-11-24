@@ -31,7 +31,7 @@ const getMachines = async (req, res) => {
     const { clusterId } = req.params;
     const cluster = await Cluster.findByPk(clusterId);
     if (!cluster) {
-      return res.status(404).json({ error: 'Cluster not foundaaaaaa' });
+      return res.status(404).json({ error: 'Cluster not found' });
     }
     const machines = await cluster.getMachines();
     return res.status(200).json(machines);
